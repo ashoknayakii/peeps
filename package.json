@@ -1,0 +1,24 @@
+{
+  "name": "peeps",
+  "version": "1.0.0",
+  "description": "A Social Network API",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ashoknayakii/peeps.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ashoknayakii/peeps/issues"
+  },
+  "homepage": "https://github.com/ashoknayakii/peeps#readme",
+  "dependencies": {
+    "express": "^4.18.1",
+    "mongoose": "^6.3.1"
+  }
+}
