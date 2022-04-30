@@ -33,7 +33,7 @@ const userController = {
   },
 
   // create a User
-  createPizza({ body }, res) {
+  createUser({ body }, res) {
     Pizza.create(body)
       .then(dbUserData => res.json(dbUserData))
       .catch(err => res.json(err));
