@@ -2,7 +2,7 @@ const { Schema, model } = require('mongoose');
 const dateFormat = require('../utils/dateFormat');
 
 const UserSchema = new Schema({
-    userName: {
+    username: {
       type: String,
       required: true,
       trim: true
@@ -39,13 +39,13 @@ const UserSchema = new Schema({
   }
 );
 
-// get total count of comments and replies on retrieval
+// get total count of thoughts and reactions on retrieval
 UserSchema.virtual('friendCount').get(function() {
   return this.friends.length
 });
 
-// create the Pizza model using the PizzaSchema
+// create the User model using the UserSchema
 const User = model('User', UserSchema);
 
-// export the Pizza model
+// export the User
 module.exports = User;

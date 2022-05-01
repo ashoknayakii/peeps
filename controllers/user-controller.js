@@ -34,14 +34,14 @@ const userController = {
 
   // create a User
   createUser({ body }, res) {
-    Pizza.create(body)
+    User.create(body)
       .then(dbUserData => res.json(dbUserData))
       .catch(err => res.json(err));
   },
 
   // update user by id
   updateUser({ params, body }, res) {
-    Pizza.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
+    User.findOneAndUpdate({ _id: params.id }, body, { new: true, runValidators: true })
       .then(dbUserData => {
         if (!dbUserData) {
           res.status(404).json({ message: 'No user found with this id!' });
@@ -54,7 +54,7 @@ const userController = {
 
   // delete User
   deleteUser({ params }, res) {
-    Pizza.findOneAndDelete({ _id: params.id })
+    User.findOneAndDelete({ _id: params.id })
       .then(dbUserData => res.json(dbUserData))
       .catch(err => res.json(err));
   }

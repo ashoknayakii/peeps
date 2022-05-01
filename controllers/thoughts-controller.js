@@ -25,7 +25,7 @@ const thoughtsController = {
   // add Reaction to Thought
 
   addReaction({ params, body }, res) {
-    Comment.findOneAndUpdate(
+    Thought.findOneAndUpdate(
       { _id: params.thoughtId },
       { $push: { reactions: body } },
       { new: true, runValidators: true }
@@ -44,7 +44,7 @@ const thoughtsController = {
   // remove Thought
 
     removeThought({ params }, res) {
-    Comment.findOneAndDelete({ _id: params.thoughtId })
+    Thought.findOneAndDelete({ _id: params.thoughtId })
       .then(deletedThought => {
         if (!deletedThought) {
           return res.status(404).json({ message: 'No Thought found with this id!' });
@@ -68,7 +68,7 @@ const thoughtsController = {
     // remove Reaction from Thought
 
     removeReaction({ params }, res) {
-      Comment.findOneAndUpdate(
+      Thought.findOneAndUpdate(
         { _id: params.thoughtId },
         { $pull: { reactions: { reactionId: params.reactionId } } },
         { new: true }
