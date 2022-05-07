@@ -4,6 +4,7 @@ const dateFormat = require('../utils/dateFormat');
 const UserSchema = new Schema({
     username: {
       type: String,
+      unique: true,
       required: true,
       trim: true
     },
@@ -11,11 +12,8 @@ const UserSchema = new Schema({
       type: String,
       unique: true,
       required: [true, "Email required"],
-      validate: {
-        validator: function(v) {
-            return /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/.test(v);
-        },
-        message: "Please enter a valid email"
+      trim: true,
+      match: [/.+@.+\..+/, "Email invalid.  Try again."]
     },
     thoughts: [
         {
@@ -23,7 +21,6 @@ const UserSchema = new Schema({
             ref: 'Thought'
         }
     ],
-},
     friends: [
       {
         type: Schema.Types.ObjectId,
