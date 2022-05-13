@@ -6,7 +6,8 @@ const {
     createUser,
     updateUser,
     addFriend,
-    deleteUser
+    deleteUser,
+    removeFriend
   } = require('../../controllers/user-controller');
 
 // Set up GET all and POST at /api/users
@@ -23,7 +24,12 @@ router
   .route('/:id')
   .get(getUserById)
   .put(updateUser)
-  .put(addFriend) // this was post before and didn't work when tested in insomnia as post
+ 
   .delete(deleteUser);
+
+router
+  .route('/:id/friends/:friendId')
+  .post(addFriend)
+  .delete(removeFriend)
 
 module.exports = router;
