@@ -15,7 +15,7 @@ const {
 router
 .route('/')
 .get(getAllThoughts)
-.post(addThought);
+.put(addThought);
 
 // /api/thoughts/<thoughtId>
 

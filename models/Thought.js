@@ -1,64 +1,73 @@
-const { Schema, model, Types } = require('mongoose');
-const dateFormat = require('../utils/dateFormat');
+const { Schema, model, Types } = require("mongoose");
+const dateFormat = require("../utils/dateFormat");
 
 const ReactionSchema = new Schema(
-    {
-      reactionId: {
-        type: Schema.Types.ObjectId,
-        default: () => new Types.ObjectId()
-      },
-      reactionBody: {
-        type: String,
-        required: true,
-        validate: [({ length }) => length <=280, 'Thoughts should be less than 280 characters.']
-      },
-      username: {
-        type: String,
-        required: true
-      },
-      createdAt: {
-        type: Date,
-        default: Date.now,
-        get: createdAtVal => dateFormat(createdAtVal)
-      }
+  {
+    reactionId: {
+      type: Schema.Types.ObjectId,
+      default: () => new Types.ObjectId(),
     },
-    {
-      toJSON: {
-        getters: true
-      }
-    }
-  );
-
-const ThoughtSchema = new Schema({
-    thoughtText: {
+    reactionBody: {
       type: String,
       required: true,
-      trim: true,
-      validate: [({ length }) => length <=280, 'Thoughts should be less than 280 characters.']
+      validate: [
+        ({ length }) => length <= 280,
+        "Thoughts should be less than 280 characters.",
+      ],
+    },
+    username: {
+      type: String,
+      required: true,
     },
     createdAt: {
       type: Date,
       default: Date.now,
-      get: createdAtVal => dateFormat(createdAtVal)
+      get: (createdAtVal) => dateFormat(createdAtVal),
+    },
+  },
+  {
+    toJSON: {
+      getters: true,
+    },
+  }
+);
+
+const ThoughtSchema = new Schema(
+  {
+    username: {
+      type: String,
+      required: true,
+    },
+    thoughtText: {
+      type: String,
+      required: true,
+      trim: true,
+      validate: [
+        ({ length }) => length <= 280,
+        "Thoughts should be less than 280 characters.",
+      ],
+    },
+    createdAt: {
+      type: Date,
+      default: Date.now,
+      get: (createdAtVal) => dateFormat(createdAtVal),
     },
     // Use Reply Schema to validate for a reply
     reactions: [ReactionSchema],
   },
-    {
-      toJSON: {
-        virtuals: true,
-        getters: true
-      },
-      id: false
-    }
-  );
+  {
+    toJSON: {
+      virtuals: true,
+      getters: true,
+    },
+    id: false,
+  }
+);
 
+ThoughtSchema.virtual("reactionCount").get(function () {
+  return this.reactions.length;
+});
 
-ThoughtSchema.virtual('reactionCount').get(function() {
-return this.reactions.length;
-  });
-  
-const Thought = model('Thought', ThoughtSchema);
-
+const Thought = model("Thought", ThoughtSchema);
 
 module.exports = Thought;
